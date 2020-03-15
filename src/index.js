@@ -1,6 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
 
+import "./style.css"
 
 class FormInput extends React.Component {
     
@@ -8,15 +10,12 @@ class FormInput extends React.Component {
         return (
             <div>
                 <form>
-                    <label>
-                        Name
-                        <input 
-                            type="text"
-                            name="nameValue"
-                            value={this.props.nameValue} 
-                            onChange={(event) => this.props.onChange(event)} 
-                        />
-                    </label>
+                    <input 
+                        type="text"
+                        name="nameValue"
+                        value={this.props.nameValue} 
+                        onChange={(event) => this.props.onChange(event)} 
+                    />
                 </form>
             </div>
         )
@@ -63,16 +62,56 @@ class FormInput extends React.Component {
         )
     }
     
+    renderRadioButtons() {
+        return (
+            <form>
+                <div>
+                    <label>
+                        <input
+                            type="radio"
+                            name="selectedRadio"
+                            value="optionA"
+                            checked={this.props.selectedRadio === "optionA"}
+                            onChange={(event) => this.props.onChange(event)}
+                        />
+                        Option A
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input
+                            type="radio"
+                            name="selectedRadio"
+                            value="optionB"
+                            checked={this.props.selectedRadio === "optionB"}
+                            onChange={(event) => this.props.onChange(event)}
+                        />
+                        Option B
+                    </label>
+                </div>
+            </form>
+        )
+    }
+
     render() {
         return (
             <div>
                 { this.renderNameInput() }
                 { this.renderTextArea() }
                 { this.renderSelectOptions() }
+                { this.renderRadioButtons() }
                 { this.renderSubmitButton() }
             </div>
         )
     }
+}
+
+FormInput.propTypes = {
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    nameValue: PropTypes.string,
+    textAreaValue: PropTypes.string,
+    selectedRadio: PropTypes.string
 }
 
 class MyFormHandler extends React.Component {
@@ -86,6 +125,7 @@ class MyFormHandler extends React.Component {
             nameValue: "",
             textAreaValue: "",
             selectedOption: "",
+            selectedRadio: "optionA"
         }
     }
 
@@ -97,6 +137,7 @@ class MyFormHandler extends React.Component {
 
     onSubmit() {
         console.log("Add to database...");
+        console.log(this.state)
     }
 
     render() {
@@ -105,9 +146,9 @@ class MyFormHandler extends React.Component {
                 <FormInput 
                     onChange = { this.onChange }
                     onSubmit = { this.onSubmit }
-                    formValue = { this.state.nameValue }
+                    nameValue = { this.state.nameValue }
                     textAreaValue = { this.state.textAreaValue }
-                    
+                    selectedRadio = { this.state.selectedRadio }
                 />
             </div>
         )
