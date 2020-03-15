@@ -78,7 +78,7 @@ class FormInput extends React.Component {
 class MyFormHandler extends React.Component {
     constructor(props) {
         super(props);
-        
+
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
@@ -96,8 +96,7 @@ class MyFormHandler extends React.Component {
     }
 
     onSubmit() {
-        console.log("Adding to database...");
-        console.log(this.state)
+        console.log("Add to database...");
     }
 
     render() {
